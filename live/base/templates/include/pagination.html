@@ -1,0 +1,33 @@
+<!-- <div id="pagenavi" class="noselect" style="width:{{page_tag_num}}px; margin: 0 auto; display: block"> -->
+<div id="pagenavi" class="noselect" style=" display: block">
+    {% if first_page == current_page %}
+        <li class="active"><a><span class="first-page current">1</span></a></li>
+    {% else %}
+        <li><a href="?page=1{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="first-page">1</a></li>
+    {% endif %}
+
+    {% if pages_first > 2 %}
+        <li><a><span>...</span></a></li>
+    {% endif %}
+    {% for page in pages %}
+        {% if page == current_page %}
+            <li class="active"><a><span class="current">{{ page }}</span></a></li>
+        {% else %}
+            <li><a href="?page={{ page }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{{ page }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if pages_last < last_page %}
+        <li><a><span>...</span></a></li>
+    {% endif %}
+
+    {% if last_page != 1 %}
+        {% if last_page == current_page %}
+            <li class="active"><a><span class="current">{{ last_page }}</span></a></li>
+        {% else %}
+            <li><a href="?page={{ last_page }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{{ last_page }}</a></li>
+        {% endif %}
+    {% endif %}
+    <div class="clearfix"></div>
+</div>
+
+

@@ -1,0 +1,44 @@
+.gag_seltBox {
+    text-align: center;
+    background: #ccc;
+    width: 25%;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+}
+
+.gag_seltBox_50pcent{
+    text-align: center;
+    background: #ccc;
+    width: 50%;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+}
+
+.gag_seltBox_50pcent.active{
+    background: #4cae4c;
+    color:#fff;
+}
+
+.gag_seltBox.active {
+    background: #4cae4c;
+    color: #fff;
+}
+
+.gag_seltBox_main {
+    margin: 0px;
+}
+
+.modal-footer .btn.btn-primary {
+    background: #ccc;
+    border-color: #ccc;
+}
+
+.passwd-group {
+    text-align: left;
+}
+
+.passwd-select{
+    width: auto !important;
+}
