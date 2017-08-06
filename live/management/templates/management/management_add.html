@@ -8,7 +8,7 @@
                <div class="panel-body">
                     <section id="unseen">
                         <div>
-                            <form action="{% if action %}{{ action }}{% else %}{% url 'anchor:anchor_add' %}{%endif%}" method="post" enctype="multipart/form-data">
+                            <form action="{% if action %}{{ action }}{% else %}{% url 'management:management_add' %}{%endif%}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 
                                 <div class="form-group-col-2">
@@ -22,13 +22,7 @@
                                     <div class="form-cont">
                                         <input type="text"  name="tel" value="{{ object.tel }}" class="form-control form-boxed" style="width:300px;">
                                     </div>
-                                </div>
-                                <div class="form-group-col-2">
-                                    <div class="form-label">出生地</div>
-                                    <div class="form-cont">
-                                        <input type="text"  name="native"  value="{{ object.native }}" class="form-control form-boxed" style="width:300px;">
-                                    </div>
-                                </div>
+                               
                                 <div class="form-group-col-2">
                                     <div class="form-label">性别：</div>
                                     <div class="form-cont">
@@ -45,42 +39,15 @@
                                 </div>
                                 <div class="form-group-col-2">
 
-                                <div class="form-group-col-2">
-                                    <div class="form-label">年龄</div>
-                                    <div class="form-cont">
-                                        <input type="text" name="age"  value="{{ object.age }}" class="form-control form-boxed" style="width:300px;">
-                                    </div>
-                                </div>
+                               
                                 <div class="form-group-col-2">
                                     <div class="form-label">邮箱</div>
                                     <div class="form-cont">
                                         <input type="text" name="e_mail"   value="{{ object.e_mail }}" class="form-control form-boxed" style="width:300px;">
                                     </div>
                                 </div>
-                                <div class="form-group-col-2">
-                                    <div class="form-label">头衔</div>
-                                    <div class="form-cont">
-                                        <input type="text" name="title"  value="{{ object.title }}" class="form-control form-boxed" style="width:300px;">
-                                    </div>
-                                </div>
-
-                                <div class="form-group-col-2">
-                                    <div class="form-label">描述</div>
-                                    <div class="form-cont">
-                                            <textarea  name="description" class="form-control">{{ object.description }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group-col-2">
-                                    <div class="form-label">图片</div>
-                                    <div class="form-cont">
-                                            {% if  object.image %}
-                                            <img src="/media/{{object.image}}"></img>
-                                            {% endif %}
-                                            <input  type="file" name="image"  >
-                                    </div>
-                                </div>
                                 
-
+                    
                         <div class="cutbox_20px clear_Both"></div>
                         <div class="cutbox_20px clear_Both"></div>
                         <div class="clear_Both lh2em">

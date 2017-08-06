@@ -264,17 +264,13 @@
                     <li>
                         <a href="#" target="_blank"><i class="icon-home"></i>前台访问</a>
                     </li>
+                    
                     <li>
-                        <a><i class="icon-random"></i>清除缓存</a>
+                        <a><i class="icon-user"></i>管理员:<em>{{user.name}}</em></a>
                     </li>
+                    
                     <li>
-                        <a><i class="icon-user"></i>管理员:<em>DeathGhost</em></a>
-                    </li>
-                    <li>
-                        <a><i class="icon-bell-alt"></i>系统消息</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
+                        <a href="{% url 'management:logout' %}"><i class="icon-signout"></i>安全退出</a>
                     </li>
                 </ul>
             </div>
@@ -283,15 +279,10 @@
         {% endblock %}
         <footer class="btm-ft">
             <p class="clear">
-                <span class="fl">©Copyright 2016 <a href="#" title="DeathGhost" target="_blank">DeathGhost.cn</a></span>
+                <span class="fl">©Copyright 20117 <a href="#" title="DeathGhost" target="_blank">haolei.cn</a></span>
                 <span class="fr text-info">
-                    <em class="uppercase">
-                        <i class="icon-user"></i>
-                        author:deathghost
-                    </em> | 
-                    <em class="uppercase"><i class="icon-envelope-alt"></i>
-                        更多模板： <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-                    </em>
+               
+                   
                     <a onclick="reciprocate()" class="text-primary"><i class="icon-qrcode"></i>捐赠</a>
                 </span>
             </p>

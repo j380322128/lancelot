@@ -31,7 +31,7 @@ class CourseInfo(models.Model):
     reason = models.CharField(u"不通过原因", max_length=200, null=True)
     category = models.ForeignKey(Category, null=True)
 
-
+    sign_num = models.IntegerField(default=0, verbose_name=u'初识报名人数') 
     url = models.CharField(u"地址", max_length=500, null=True)
     active = models.IntegerField("激活", default=1)  # 1-显示  2-隐藏  3-删除
 

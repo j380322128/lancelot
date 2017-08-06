@@ -76,7 +76,7 @@ class AnchorEdit(generic.DetailView):
             if hasattr(anchor, key):
                 setattr(anchor, key, val)
         anchor.save()
-        return redirect("anchor:anchor_list")
+        return redirect ("anchor:anchor_list")
 
 @csrf_exempt
 def audit(req):

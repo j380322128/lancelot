@@ -1,4 +1,4 @@
-{% extends "include/base.html" %}
+{% extends "include/assets.html" %}
 {% block main%}
 {% load request_args %}
     <main class="main-cont content mCustomScrollbar">
@@ -8,7 +8,7 @@
                     <header>
                         <h2 class="title">课程管理</h2>
                         <p class="title-description">
-                        <!-- <a href="{% url 'anchor:anchor_add' %}" target="_blank">创建课程</a> -->
+                        <a href="{% url 'course:course_add' %}" target="_blank">创建课程</a>
                         </p>
                     </header>
                     <hr>
@@ -51,10 +51,10 @@
                                 <thead>
                                 <tr>
                                     <th style="display: none"></th>
-                                    <th hidden>标题</th>
-                                    <th>讲师</th>
+                                    <th class="numeric">标题</th>
+                                    <th class="numeric">讲师</th>
                                     <th class="numeric">创建日期</th>
-                                   
+                                    <th class="numeric">点赞数</th>
                                     <th class="numeric">状态</th>
                                     <th class="numeric">操作</th>
                                 </tr>
@@ -67,12 +67,12 @@
                                     <tr>
                                         <td style="display: none" class="td-id"><input name="{{ objct.id }}" class="id"/>
                                         </td>
-                                        <td hidden>{{ obj.title }}</td>
-                                        <td>{{ obj.anchor.name }}</td>
-                                        <td class="numeric">{{ user.create_time | date:"Y-m-d H:i" }}</td>
-                             
+                                        <td class="numeric">{{ obj.title }}</td>
+                                        <td class="numeric">{{ obj.anchor.name }}</td>
+                                        <td class="numeric">{{ obj.create_time | date:"Y-m-d H:i" }}</td>
+                                        <td class="numeric ban_statue">{{obj.support}}</td>
                                         <td class="numeric ban_statue">
-                                            {% if obj.status == 1 %}
+                                            {% if obj.audit == 1 %}
                                             上架
                                             {% else %}
                                             待上架
@@ -80,7 +80,14 @@
 
                                         </td>
                                         <td class="numeric opt">
-                                            111111111
+                                            <a href="/course/course_edit/{{ obj.id }}/" >编辑</a>
+                                            {% if obj.audit == 1 %}
+                                                <a class="charge_btn" data="{{ obj.id }}" data_value="0" >下架</a>
+
+                                            {% else %}
+                                                <a class="charge_btn" data="{{ obj.id}}" data_value="1" >上架</a>
+                                            {% endif %}        
+
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -111,5 +118,5 @@
      
 {% endblock %}
 {% block js %}
-    <script type="text/javascript" src="/static/anchor/js/func.js"></script>
+    <script type="text/javascript" src="/static/course/js/control.js"></script>
 {% endblock %}
