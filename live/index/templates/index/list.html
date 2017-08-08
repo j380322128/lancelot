@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>浩磊直播</title>
+
+<!-- Google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+
+<!-- font awesome -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css" />
+
+<!-- animate.css -->
+<link rel="stylesheet" href="/static/assets/animate/animate.css" />
+<link rel="stylesheet" href="/static/assets/animate/set.css" />
+
+<!-- gallery -->
+<link rel="stylesheet" href="/static/assets/gallery/blueimp-gallery.min.css">
+
+<!-- favicon -->
+<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/static/assets/style.css">
+
+</head>
+
+<body>
+<div class="topbar animated fadeInLeftBig"></div>
+
+
+<!-- About Starts -->
+<div class="highlight-info">
+<div class="overlay spacer">
+<div class="container">
+<div class="row text-center  wowload fadeInDownBig">
+  {% for c in categories%}
+  <div class="col-sm-3 col-xs-6">
+  <a class="fa fa-rocket  fa-5x" href="/index/courses/?category_id={{c.id}}"></a><h4>{{c.name}}</h4>
+  </div>
+  {% endfor %}
+  <!-- <div class="col-sm-3 col-xs-6">
+  <i class="fa fa-rocket  fa-5x"></i><h4>75 Projects</h4>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+  <i class="fa fa-cloud-download  fa-5x"></i><h4>454 Downloads</h4>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+  <i class="fa fa-map-marker fa-5x"></i><h4>2 Offices</h4>
+  </div> -->
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- course -->
+
+<div class="row grid team  wowload fadeInUpBig">
+  {% for course in object_list%}	
+    <div class=" col-sm-3 col-xs-6">
+  	  <figure class="effect-chico">
+          <img src="/media/{{course.image}}" alt="img01" width="300px" height="330px" />
+          <figcaption>
+              <p><b>{{course.title}}</b><br>{{course.anchor.name}}<br><br>{{course.description}}
+              <br> <a href="/index/watch/{{course.id}}/"><i class="fa fa-twitter"></i>点击观看</a></p>            
+          </figcaption>
+      </figure>
+    </div>
+  {% endfor %}
+ 
+</div>
+<!-- team -->
+
+</div>
+
+<!--Contact Starts-->
+<div id="contact" class="spacer">
+
+<div class="container contactform center">
+
+
+</div>
+</div>
+<!--Contact Ends-->
+
+
+
+<!-- Footer Starts -->
+<div class="footer text-center spacer">
+<p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a> <a href="#"><i class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i class="fa fa-flickr fa-2x"></i></a> </p>
+Copyright 2014 Cyrus Creative Studio. All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+</div>
+<!-- # Footer Ends -->
+<a href="#works" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
+
+
+
+
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title">Title</h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->    
+</div>
+
+
+
+<!-- jquery -->
+<script src="/static/assets/jquery.js"></script>
+
+<!-- wow script -->
+<script src="/static/assets/wow/wow.min.js"></script>
+
+
+<!-- boostrap -->
+<script src="/static/assets/bootstrap/js/bootstrap.js" type="text/javascript" ></script>
+
+<!-- jquery mobile -->
+<script src="/static/assets/mobile/touchSwipe.min.js"></script>
+<script src="/static/assets/respond/respond.js"></script>
+
+<!-- gallery -->
+<script src="/static/assets/gallery/jquery.blueimp-gallery.min.js"></script>
+
+<!-- custom script -->
+<script src="/static/assets/script.js"></script>
+
+</body>
+</html>

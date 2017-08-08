@@ -8,7 +8,10 @@ from django.views import generic
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, FormView, TemplateView, DetailView, View
+from django.contrib.auth import authenticate, logout, login
 from django.db import transaction
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.models import User
 
@@ -54,47 +57,42 @@ class AuthAdd(generic.TemplateView):
             owner.save()
         return redirect("management:management_list")
 
+class LoginForm(FormView):
+    '''
+    后台登录
+    '''
+    template_name = 'management/login.html'
+    form_class = AuthenticationForm
 
-# @method_decorator(login_required, name='dispatch')
-# class AnchorEdit(generic.DetailView):
-#     template_name = "management/management_add.html"
-#     model = AnchorInfo
-#     queryset = AnchorInfo.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(LoginForm, self).get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next')
+        return context
 
-#     def get_context_data(self, **kwargs):
-#         '''
-#         方便以后添加其他信息
-#         '''
-#         context = super(AnchorEdit, self).get_context_data(**kwargs)
-#         return super(AnchorEdit, self).get_context_data(**context)
+    def post(self, request):
+        try:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            next = request.POST.get('next', None)
 
-#     def get(self, request, pk):
-#         self.object = self.get_object()
-#         context = self.get_context_data(object=self.object)
-#         context['object'] = self.object
-#         context['action'] = "/anchor/anchor_edit/{}/".format(pk)
-#         return self.render_to_response(context)
+            user = authenticate(username=username, password=password)
+            if not user:
+                messages.error(request, u'用户名密码不匹配')
+                return redirect('management:login')
 
-#     def post(self, request, pk):
-#         post_data = request.POST
-#         post_file = request.FILES
-#         image = post_file.get('image', None)
-#         if image:
-#             post_data.update({'image': image})
-#         anchor = AnchorInfo.objects.get(pk=pk)
+            if not user.is_superuser and not user.is_staff:
+                messages.error(request, u'权限不足，不能登录后台')
+                return render(request, 'management/login.html')
+    
+            if next:
+                    response = redirect(next)
+            else:
+                response = redirect('anchor:anchor_list')
+      
+            login(self.request, user)
+            
+            return response
 
-#         for key, val in post_data.items():
-#             if hasattr(anchor, key):
-#                 setattr(anchor, key, val)
-#         anchor.save()
-#         return redirect("anchor:anchor_list")
-
-# @csrf_exempt
-# def audit(req):
-#     post_data = req.POST
-#     audit = post_data.get('audit', None)
-#     id = post_data.get('id', None)
-#     anchor = AnchorInfo.objects.get(pk=id)
-#     anchor.audit = audit
-#     anchor.save()
-#     return JsonResponse({'result': 'success', 'message': u'修改成功'})
+        except Exception as e:
+            messages.error(request, u'用户名或者密码错误')
+            return render(request, 'management/login.html')

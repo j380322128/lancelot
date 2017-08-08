@@ -17,6 +17,7 @@ class UserInfo(models.Model):
     title = models.TextField(verbose_name=u'头衔', null=True, default='')
     image = models.ImageField(upload_to='images/user_info/', null=True)
     create_time = models.DateTimeField(auto_now_add=True, null=True)
+    type =models.IntegerField(default=2, choices=((2, u'普通用户'), (1, u'管理员')))
 
     
     @property

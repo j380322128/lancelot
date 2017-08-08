@@ -7,8 +7,8 @@ from . import  views
 urlpatterns = [
     # 前端用户
     url(r'^course_list/$', views.CourseList.as_view(), name='course_list'),
-    # url(r'^anchor_add/$', views.AnchorAdd.as_view(), name='anchor_add'),
-    # url(r'^anchor_edit/(?P<pk>\w*)/$', views.AnchorEdit.as_view(), name='anchor_edit'),
-    # url(r'^anchor_audit/$', views.audit, name='anchor_audit'),
+    url(r'^course_add/$', views.CourseAdd.as_view(), name='course_add'),
+    url(r'^course_edit/(?P<pk>\w*)/$', views.CourseEdit.as_view(), name='course_edit'),
+    url(r'^course_audit/$', views.audit, name='course_audit'),
 
 ]

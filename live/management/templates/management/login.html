@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Login</title>
+
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{% static 'assets/js/html5shiv.js' %}"></script>
+    <script src="{% static 'assets/js/respond.min.js' %}"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+
+<div class="container">
+
+    <form class="form-signin" action="{% url 'management:login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-signin-heading text-center" style="color:#48995b; font-size: 20px;">
+            <h1 class="sign-title"></h1>
+            {#            <img src="{% static 'assets/images/logo.png' %}" width="270">#}
+            {#            <img src="media/{{ third.log }}" width="270">#}
+            <br>后台管理系统
+        </div>
+        <div class="login-wrap">
+            <input type="text" name="username" class="form-control" placeholder="账号" autofocus>
+            <input type="password" name="password" class="form-control" placeholder="密码">
+            <input type="password" name="next" hidden value="{% if next %}{{ next }}{% endif %}">
+
+            <button class="btn btn-lg btn-login btn-block" style="outline: none;" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <div class="registration">
+                Sign In to operate.
+            </div>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+                <span class="pull-right"> </span>
+            </label>
+        </div>
+    </form>
+
+    {% if next %}
+        <div class="panel panel-danger layer_abso">
+            <div class="panel-heading"><h3 class="panel-title">权限不足，请使用其他账号登录</h3></div>
+        </div>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="panel panel-danger layer_abso">
+                <div class="panel-heading"><h3 class="panel-title">{{ message }}</h3></div>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+</div>
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="{% static 'assets/js/jquery-1.10.2.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/modernizr.min.js' %}"></script>
+<script src="{% static 'user/js/user.js' %}"></script>
+
+</body>
+</html>
