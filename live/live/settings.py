@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'audience',
     'course',
     'category',
-    'index',
     'management',
+    'index',
 ]
 
 MIDDLEWARE = [
@@ -141,7 +141,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = '/management/login/'
 
 # 信信客
 XXK_DEV_ID = os.environ.get("XXK_DEV_ID", "8765e76b87d5425e865ed46e68b78abb")
