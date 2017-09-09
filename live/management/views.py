@@ -8,6 +8,8 @@ from django.views import generic
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, FormView, TemplateView, DetailView, View
+from django.contrib.auth.hashers import make_password, check_password
+
 from django.contrib.auth import authenticate, logout, login
 from django.db import transaction
 from django.contrib import messages
@@ -19,6 +21,7 @@ from audience.models import UserInfo
 
 from base.views import OwnerList
 from audience.utils import get_unique_username
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -44,17 +47,27 @@ class AuthAdd(generic.TemplateView):
 
     def post(self, request):
         post_data = request.POST
-        user_id=str(uuid.uuid1()).replace('-', '')
-        post_data.update({'user_id': user_id})
-
-        username = get_unique_username()
+        password = post_data.get('password')
+        name = post_data.get('name')
+        tel = post_data.get('tel')
+        user_id = user_id=str(uuid.uuid1()).replace('-', '')        
+        if not password:
+            return JsonResponse({'result': 'fail', 'message': u'请输入密码!'})
+        
+        user = User.objects.filter(username=name)
+        if user:
+            return JsonResponse({'result': 'fail', 'message': u'该用户名已经存在!'})
         with transaction.atomic():
+            user = User.objects.create_user(username=name, password=password, is_staff=True)
 
-            user = User.objects.create_user(username=username, is_staff=1)
-            post_data.update({'owner': user, 'type':1})
-            save_data = {key: val for key, val in post_data.items() if val and key in dir(UserInfo)}
-            owner = UserInfo(**save_data)            
-            owner.save()
+            user.save()
+
+
+            userinfo = UserInfo(name=name, passwd=make_password(password), user_id=user_id, tel=tel,
+                                type=1, owner=user)
+            userinfo.save()
+
+            
         return redirect("management:management_list")
 
 class LoginForm(FormView):
@@ -78,8 +91,21 @@ class LoginForm(FormView):
             user = authenticate(username=username, password=password)
             if not user:
                 messages.error(request, u'用户名密码不匹配')
-                return redirect('management:login')
+                user_info_list = UserInfo.objects.filter(tel=username)
+                if len(user_info_list) == 1:
+                    user_info = user_info_list.first()
+                    if not check_password(password, user_info.passwd):
 
+                        # 如果该方式检测不能成功登录，则使用自定义加密方式进行验证
+                        password = user_info.user_id + settings.SECRET_KEY + password
+                        password = hashlib.new('md5', password.encode("utf8")).hexdigest()
+
+                        if password != user_info.passwd:
+                            messages.error(request, u'用户名密码不匹配')
+                            return redirect('system:login')
+
+                    # 处理完判断则代表可以登录
+                    user = user_info.owner
             if not user.is_superuser and not user.is_staff:
                 messages.error(request, u'权限不足，不能登录后台')
                 return render(request, 'management/login.html')

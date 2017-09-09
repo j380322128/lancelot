@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^audience/', include('audience.urls', namespace="audience")),
     url(r'^management/', include('management.urls', namespace="management")),
     url(r'^index/', include('index.urls', namespace="index")),
-    url(r'^cate/', include('cate.urls', namespace="cate")),
 
 
 

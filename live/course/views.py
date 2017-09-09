@@ -42,7 +42,8 @@ class CourseAdd(generic.TemplateView):
         image = post_file.get('image', None)
         if image:
             post_data.update({'image': image})
-
+        else:
+            post_data.pop('image')
         save_data = {key: val for key, val in post_data.items() if val and key in dir(CourseInfo)}
         anchor_info = CourseInfo(**save_data)
         anchor_info.save()
