@@ -8,9 +8,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # from base.views import OwnerList
-from .models import CourseInfo
+from .models import CourseInfo, LiveChannel, Channel
 from anchor.models import AnchorInfo
 from category.models import Category
+from .utils import get_uuid
 
 @method_decorator(login_required, name='dispatch')
 class CourseList(generic.ListView):
@@ -44,6 +45,7 @@ class CourseAdd(generic.TemplateView):
             post_data.update({'image': image})
         else:
             post_data.pop('image')
+        post_data.update({'course_id':get_uuid()})
         save_data = {key: val for key, val in post_data.items() if val and key in dir(CourseInfo)}
         anchor_info = CourseInfo(**save_data)
         anchor_info.save()
@@ -98,3 +100,43 @@ def audit(req):
     course.audit = audit
     course.save()
     return JsonResponse({'result': 'success', 'message': u'修改成功'})
+
+
+
+@method_decorator(login_required, name='dispatch')
+class LiveRoom(generic.DetailView):
+    template_name = "course/live_room.html"
+    model = CourseInfo
+    queryset = CourseInfo.objects.all()
+
+    def get_context_data(self, **kwargs):
+        '''
+        方便以后添加其他信息
+        '''
+        context = super(LiveRoom, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+    def get(self, request, pk):
+        self.object = self.get_object()
+        print self.object,'======'
+        context = self.get_context_data(object=self.object)
+        context['object'] = self.object
+        course_id=self.object.course_id
+        #扩展点赞
+        # context['support'] =support    
+        channel_url = {'url_rtmp': '', 'url_flv': '', 'url_hls': '', 'pulish_url': '', 'status': ''}
+        context['channel_url'] = channel_url
+        live_channel = LiveChannel.objects.filter(video_id=course_id).first()
+        if not live_channel:
+            return context
+        channel_info = Channel.objects.filter(pk=live_channel.channel_id).first()
+        channel_url['url_rtmp'] = channel_info.url_rtmp
+        channel_url['url_flv'] = channel_info.url_flv
+        channel_url['url_hls'] = channel_info.url_hls
+        channel_url['publish_url'] = channel_info.pulish_url
+        channel_url['status'] = channel_info.status   
+        return self.render_to_response(context)
+ 
+
+   

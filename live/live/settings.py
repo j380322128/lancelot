@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat',
+    'rest_framework',
+    'public',
     'base',
     'anchor',
     'audience',
@@ -147,3 +150,33 @@ LOGIN_URL = '/management/login/'
 XXK_DEV_ID = os.environ.get("XXK_DEV_ID", "8765e76b87d5425e865ed46e68b78abb")
 XXK_DEV_KEY = os.environ.get("XXK_DEV_KEY", "fde1264d3b5543e590471059b89f74b9")
 XXK_URL = os.environ.get("XXK_URL", "http://www.xinxinke.com/api/send")
+
+
+# ALIYUN sdk setting
+ALIYUN_ACCESS_KEY = os.environ.get("ALIYUN_ACCESS_KEY", "LTAIkTfbZ0KSJKal")
+ALIYUN_SECRET = os.environ.get("ALIYUN_SECRET", "W2ajRYEmyAcm94AXmXnOTuMheW46Kg")
+if ALIYUN_SECRET[-1] != "&":
+    ALIYUN_SECRET = ALIYUN_SECRET + "&"
+ALIYUN_API_DOMAIN_LIVE = os.environ.get("ALIYUN_API_DOMAIN_LIVE", "http://live.aliyuncs.com")  # 直播
+ALIYUN_API_DOMAIN_VOD = os.environ.get("ALIYUN_API_DOMAIN_VOD", "http://mts.cn-shanghai.aliyuncs.com")  # 点播
+ALIYUN_API_DOMAIN_MTS = os.environ.get("ALIYUN_API_DOMAIN_MTS", "http://mts.cn-shanghai.aliyuncs.com")  # 媒体转码
+
+# ALIYUN 直播
+ALIYUN_LIVE_PUSH_DOMAIN = os.environ.get("ALIYUN_LIVE_PUSH_DOMAIN", "video-center.alivecdn.com")
+ALIYUN_LIVE_CDN_DOMAIN = os.environ.get('ALIYUN_LIVE_CDN_DOMAIN', "live.ilaus.vc")
+
+# # ALIYUN OSS 
+# ALIYUN_OSS_ENDPOINT = os.environ.get('ALIYUN_OSS_ENDPOINT', "oss-cn-shanghai.aliyuncs.com")
+# ALIYUN_OSS_BUCKET = os.environ.get('ALIYUN_OSS_BUCKET', "ullget-staging")
+# ALIYUN_OSS_DIRECTORY_PREFIX = os.environ.get('ALIYUN_OSS_DIRECTORY_PREFIX', "staging/")
+# ALIYUN_OSS_CDN_URL = os.environ.get('ALIYUN_OSS_CDN_URL', 'https://stagingcdn.ullget.net/')
+# ALIYUN_OSS_REGION = os.environ.get("ALIYUN_OSS_REGION", 'oss-cn-shanghai')
+
+PROJECT_NAME = os.environ.get('PROJECT_NAME', 'ullget')
+
+
+# ALIYUN 支付
+ALIPAY_GATEWAY = "https://openapi.alipay.com/gateway.do"
+
+ALIPAY_PARTNER_ID = os.environ.get("ALIPAY_PARTNER_ID", "2088421705344206")  # PID
+ALIPAY_APPID = os.environ.get("ALIPAY_APPID", "2016082201787030")  # 当面付的APPID

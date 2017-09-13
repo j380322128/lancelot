@@ -49,9 +49,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
         filter = request.GET.get('filter', '')
    
         if pk != 'all':
-            course_info = VideoInfo.objects.filter(category_id=pk, active=1)
+            course_info = CourseInfo.objects.filter(category_id=pk, active=1)
         else:
-            course_info = VideoInfo.objects.filter(active=1)
+            course_info = CourseInfo.objects.filter(active=1)
 
         if 'free' in filter:
             course_info = course_info.filter(money=0)
@@ -63,13 +63,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
         if 'sales' in sort :
             course_info = []
             for i in course_list:
-                count = MyCourse.objects.filter(course_id=i.video_id).count()
-                course_info.append({'course_id':i.video_id, 'count':count})
+                count = MyCourse.objects.filter(course_id=i.course_id).count()
+                course_info.append({'course_id':i.course_id, 'count':count})
 
             course_info.sort(key=lambda k: (k.get('count', 0)),reverse=True)
             course_list = []
             for c in course_info:
-                course = VideoInfo.objects.get(video_id=c['course_id'])
+                course = CourseInfo.objects.get(course_id=c['course_id'])
                 course_list.append(course)
 
         if 'selection' in sort:

@@ -11,4 +11,7 @@ urlpatterns = [
     url(r'^course_edit/(?P<pk>\w*)/$', views.CourseEdit.as_view(), name='course_edit'),
     url(r'^course_audit/$', views.audit, name='course_audit'),
 
+  	#直播地址
+    url(r'^live_room/(?P<pk>\w*)/$', views.LiveRoom.as_view(), name='live_room'),
+
 ]

@@ -22,3 +22,6 @@ raven==6.0.0
 django-cors-headers==2.0.2
 requests-toolbelt==0.7.1
 django-rest-elasticsearch==0.2.0
+rsa==3.4.2
+oss2==2.2.3
+celery==4.0.2
