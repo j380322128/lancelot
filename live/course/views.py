@@ -106,8 +106,8 @@ def audit(req):
 @method_decorator(login_required, name='dispatch')
 class LiveRoom(generic.DetailView):
     template_name = "course/live_room.html"
+    context_object_name = "object"
     model = CourseInfo
-    queryset = CourseInfo.objects.all()
 
     def get_context_data(self, **kwargs):
         '''
@@ -135,7 +135,8 @@ class LiveRoom(generic.DetailView):
         channel_url['url_flv'] = channel_info.url_flv
         channel_url['url_hls'] = channel_info.url_hls
         channel_url['publish_url'] = channel_info.pulish_url
-        channel_url['status'] = channel_info.status   
+        channel_url['status'] = channel_info.status  
+        print(channel_url,'=======') 
         return self.render_to_response(context)
  
 
