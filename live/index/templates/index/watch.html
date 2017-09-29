@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{object.title}}直播间</title>
+		<link rel="icon" type="image/png" href="favicon.png"> 
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/animate.css" media="all" />            <!-- Animate css -->
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/font-awesome.min.css" media="all" />   <!-- Font awesome css -->
+        <link rel="stylesheet" href="/static/course/sbtp_53_obey/css/font-sourch_sun_pro.css"/>             <!-- Font css -->	
+        <link rel="stylesheet" href="/static/course/sbtp_53_obey/fonts/comicSans.css"/> 					<!-- Font css -->
+        <link rel="stylesheet" href="/static/course/sbtp_53_obey/css/slicknav.css"/>	 					<!-- Slicknav css -->
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/bootstrap.min.css"/>  					<!-- Bootstrap -->
+        <link rel="stylesheet" href="/static/course/sbtp_53_obey/css/owl.carousel.css">	   					<!-- carousel css -->
+        <link rel="stylesheet" href="/static/course/sbtp_53_obey/css/owl.theme.css">   						<!-- Owl theme css -->			
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/reset.css"/>						 	<!-- Recet css -->
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/switcher/switcher.css"/>					<!-- Switcher css -->				
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/style2.css"/>							<!-- Style css -->
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/responsive.css" media="all" />			<!-- Responsive css -->
+		<link rel="stylesheet" href="/static/course/sbtp_53_obey/css/preloder.css" media="all" />			<!-- Preloder css -->
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+	<link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/5.20.1/videojs-ie8.min.js"></script>
+	</head>
+	<body>
+		<!-- loader-wrapper -->		
+		
+			<div class="home_area"> <!-- Home area-->
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="logo">
+								<img src="img/logo.png" alt="" /> <!-- Here is your logo -->
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="home_area_text">
+								<h2 >{{object.title}}</h2> <!-- Page title -->
+								
+								<h4></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="subscribe_area"> <!-- Subscribe -->
+								<!-- form section -->	
+								
+							<video id="live_video" class="video-js vjs-default-skin" controls preload="auto" width="inherit" height="650px" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+								<source src="{{channel_url.url_rtmp}}" type="rtmp/flv">
+								<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+							</video>
+
+
+								
+								<!-- end form section -->		
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>	<!-- //Home area-->
+			
+			<div style="clear:both;"></div>
+			
+			<input type='hidden' id='id' value="{{object.id}}">
+			<input type='hidden' id='status' value="{{object.status}}">
+
+		<script src="/static/course/sbtp_53_obey/js/jquery-1.9.1.min.js"></script>	  
+		<script type="text/javascript" src="/static/course/js/control.js"></script>
+		<script src="http://vjs.zencdn.net/5.20.1/video.js"></script>
+	</body>
+
+</html>
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Video.js | HTML5 Video Player</title>
+ 
+
+    <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/5.20.1/videojs-ie8.min.js"></script>
+    
+</head>
+<body>
+
+  <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+    <source src="rtmp://live.ilaus.vc/1_sasdfasfa/1505306603151_sasdfasfa" type="rtmp/flv">
+    
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
+  
+  <script src="http://vjs.zencdn.net/5.20.1/video.js"></script>
+</body>
+
+</html> -->

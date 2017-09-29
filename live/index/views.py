@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from category.models import Category
 from course.models import CourseInfo
 from anchor.models import AnchorInfo
+from course.models import CourseInfo, LiveChannel, Channel
 
 @method_decorator(login_required, name='dispatch')
 class IndexCategory(generic.ListView):
@@ -45,3 +46,30 @@ class IndexCourse(generic.ListView):
         context['categories'] = Category.objects.all()
         context['Anchors'] = AnchorInfo.objects.filter(audit=1)
         return context
+
+@method_decorator(login_required, name='dispatch')
+class CourseWatch(generic.DetailView):
+    template_name = "index/watch.html"
+    model = CourseInfo
+    queryset = CourseInfo.objects.all()
+
+    def get(self, request, pk):
+        self.object = self.get_object()
+        print self.object,'======'
+        context = self.get_context_data(object=self.object)
+        context['object'] = self.object
+        course_id=self.object.course_id
+        #扩展点赞
+        # context['support'] =support    
+        channel_url = {'url_rtmp': '', 'url_flv': '', 'url_hls': '', 'pulish_url': '', 'status': ''}
+        context['channel_url'] = channel_url
+        live_channel = LiveChannel.objects.filter(video_id=course_id).first()
+        if not live_channel:
+            return context
+        channel_info = Channel.objects.filter(pk=live_channel.channel_id).first()
+        channel_url['url_rtmp'] = channel_info.url_rtmp
+        channel_url['url_flv'] = channel_info.url_flv
+        channel_url['url_hls'] = channel_info.url_hls
+        channel_url['publish_url'] = channel_info.pulish_url
+        channel_url['status'] = channel_info.status  
+        return self.render_to_response(context)
